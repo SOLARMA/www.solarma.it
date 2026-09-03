@@ -308,6 +308,23 @@ hr { border: 0; border-top: 1px solid var(--line); margin: 2.5rem 0; }
 }
 .person__role { font-size: .84rem; color: var(--ink-mute); text-transform: uppercase; letter-spacing: .07em; font-weight: 700; }
 
+/* Professional registration details shown under a partner */
+.credential {
+  display: grid; grid-template-columns: auto 1fr; gap: .25rem .9rem;
+  margin: 0 0 .7rem; padding: .8rem 1rem;
+  background: var(--bg-alt); border-left: 3px solid var(--brand);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  font-size: .86rem; line-height: 1.5;
+}
+.credential dt { color: var(--ink-mute); font-weight: 600; white-space: nowrap; }
+.credential dd { margin: 0; color: var(--ink); }
+.credential + p { margin-bottom: 0; font-size: .86rem; }
+@media (max-width: 520px) {
+  .credential { grid-template-columns: 1fr; gap: 0; }
+  .credential dt { margin-top: .5rem; }
+  .credential dt:first-child { margin-top: 0; }
+}
+
 /* ---------- Contact ---------- */
 .contact-item { display: flex; gap: .9rem; align-items: flex-start; margin-bottom: 1.5rem; }
 .contact-item:last-child { margin-bottom: 0; }
