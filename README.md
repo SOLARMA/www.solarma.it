@@ -59,6 +59,18 @@ They extract the ZIP and double-click `index.html` — no server, no tooling and
 internet connection needed. The package bundles an Italian instruction sheet explaining
 how to extract it, what to look at, and what the `n.d.` placeholders mean.
 
+**The ZIP cannot be emailed from Gmail**, which blocks archives containing `.html`
+files. Share it through Google Drive, or send the PDF version instead:
+
+```sh
+python3 tools/build-review-pdf.py
+# -> build/SOLARMA-anteprima-sito.pdf
+```
+
+That renders every page with the on-screen stylesheet — real colours and layout, not a
+stripped-down printout — into one bookmarked PDF that Gmail previews inline and that
+opens on a phone. It needs `playwright` and `pypdf`; see the script header.
+
 Optionally, to preview over HTTP as it will actually be served:
 
 ```sh
