@@ -1,5 +1,4 @@
 User-agent: *
 Allow: /
-Disallow: /old/
 
 Sitemap: https://www.solarma.it/sitemap.xml

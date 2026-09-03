@@ -18,7 +18,7 @@ By default an **init container downloads a .zip archive and unpacks it** into an
 no registry and no build pipeline are needed.
 
 The unpack step strips a single wrapping directory, then copies only the files
-that belong on a web server — `README.md`, `LICENSE`, `tools/`, `old/` and
+that belong on a web server — `README.md`, `LICENSE`, `tools/`, `deploy/` and
 `.github/` in a repository archive are skipped. If the archive turns out not to
 contain the site, the init container exits non-zero and the pod never starts,
 rather than serving an empty document root.

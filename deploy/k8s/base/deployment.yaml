@@ -66,7 +66,7 @@ spec:
               fi
 
               # Copy only what belongs on a web server. Anything else in the
-              # archive (README, LICENSE, tools/, .github/, old/) is skipped.
+              # archive (README, LICENSE, tools/, deploy/, .github/) is skipped.
               cd "$src"
               for item in index.html 404.html azienda.html impianto.html \
                           servizi.html contatti.html note-legali.html \
