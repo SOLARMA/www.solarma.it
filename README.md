@@ -46,9 +46,18 @@ grep -rn "TODO SOLARMA" *.html en/*.html
 ## Local preview
 
 Internal links and assets use **relative** paths, so the site works both when served from
-a web server and when opened straight from disk. To review a copy without publishing it,
-download the repository as a ZIP, extract it, and double-click `index.html` — no server
-and no internet connection needed. This is the route to give a non-technical reviewer.
+a web server and when opened straight from disk.
+
+To send the site to a non-technical reviewer, build the review package:
+
+```sh
+python3 tools/build-review-package.py
+# -> build/SOLARMA-anteprima-sito.zip
+```
+
+They extract the ZIP and double-click `index.html` — no server, no tooling and no
+internet connection needed. The package bundles an Italian instruction sheet explaining
+how to extract it, what to look at, and what the `n.d.` placeholders mean.
 
 Optionally, to preview over HTTP as it will actually be served:
 
