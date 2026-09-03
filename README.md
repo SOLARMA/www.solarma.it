@@ -20,7 +20,9 @@ framework, no runtime dependencies: every page is plain HTML that can be edited 
 /assets/
   css/site.css        Single stylesheet — design tokens at the top
   js/site.js          Mobile nav + consent-gated analytics
-  img/                Brand mark, favicon, hero illustration, Open Graph image
+  img/                Favicons, hero illustration, Open Graph image
+images/
+  SOLARMA_logo.png    The company logo, used in the header and footer
 /old/                 Archive of the pre-2016 website, kept for reference
 404.html              Bilingual not-found page
 sitemap.xml           All 12 pages, with hreflang alternates
