@@ -45,13 +45,22 @@ grep -rn "TODO SOLARMA" *.html en/*.html
 
 ## Local preview
 
+Internal links and assets use **relative** paths, so the site works both when served from
+a web server and when opened straight from disk. To review a copy without publishing it,
+download the repository as a ZIP, extract it, and double-click `index.html` — no server
+and no internet connection needed. This is the route to give a non-technical reviewer.
+
+Optionally, to preview over HTTP as it will actually be served:
+
 ```sh
 python3 -m http.server 8000
 # then open http://localhost:8000/
 ```
 
-Paths are root-absolute (`/assets/...`), so preview through a web server rather than by
-opening the files directly from disk.
+One exception: **`404.html` keeps root-absolute paths on purpose.** GitHub Pages serves it
+at whatever URL was requested (say `/foo/bar`), so relative paths there would resolve
+against the wrong folder and the page would lose its styling. It is therefore the one page
+that does not render correctly from disk.
 
 ## Privacy and analytics
 
