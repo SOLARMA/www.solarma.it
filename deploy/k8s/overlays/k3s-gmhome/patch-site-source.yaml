@@ -1,0 +1,10 @@
+# Which archive this cluster serves. Point it at a tag once the site is
+# merged, so the content cannot shift under a pod restart:
+#
+#   https://codeload.github.com/SOLARMA/solarma.github.com/zip/refs/tags/v1.0.0
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: solarma-site-source
+data:
+  SITE_ARCHIVE_URL: "https://codeload.github.com/SOLARMA/solarma.github.com/zip/refs/heads/claude/solarma-website-revamp-tcb3z1"

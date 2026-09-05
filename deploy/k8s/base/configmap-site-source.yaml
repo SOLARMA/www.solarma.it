@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: solarma-site-source
+data:
+  # Archive the init container downloads and unpacks on every pod start.
+  #
+  # Two kinds of archive work, because the init container strips a single
+  # wrapping directory if it finds one:
+  #
+  #   * a branch/tag archive of this repository (shown here) - contains the
+  #     complete site, including 404.html, robots.txt and sitemap.xml;
+  #   * the reviewer package from tools/build-review-package.py, if you host
+  #     it somewhere reachable - contains the pages but not those three files.
+  #
+  # Prefer a tag over a branch: a branch archive changes under you, so two
+  # pods started at different times can serve different content.
+  SITE_ARCHIVE_URL: "https://codeload.github.com/SOLARMA/solarma.github.com/zip/refs/heads/claude/solarma-website-revamp-tcb3z1"
