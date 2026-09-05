@@ -17,7 +17,6 @@ COPY --chown=101:101 index.html 404.html azienda.html impianto.html \
      /usr/share/nginx/html/
 COPY --chown=101:101 en/     /usr/share/nginx/html/en/
 COPY --chown=101:101 assets/ /usr/share/nginx/html/assets/
-COPY --chown=101:101 images/SOLARMA_logo.png /usr/share/nginx/html/images/
 
 # The nginx server block still comes from the solarma-site-nginx ConfigMap at
 # runtime, so the same configuration applies to both deployment styles.

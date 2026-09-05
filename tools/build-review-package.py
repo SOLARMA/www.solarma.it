@@ -103,9 +103,8 @@ def main():
     for name in PAGES:
         shutil.copy(ROOT / name, OUT / name)
     shutil.copytree(ROOT / "en", OUT / "en")
+    # assets/ carries the logo too, since images/ was archived into history/
     shutil.copytree(ROOT / "assets", OUT / "assets")
-    (OUT / "images").mkdir()
-    shutil.copy(ROOT / "images" / "SOLARMA_logo.png", OUT / "images" / "SOLARMA_logo.png")
 
     (OUT / "LEGGIMI - come vedere il sito.txt").write_text(ISTRUZIONI, encoding="utf-8")
 

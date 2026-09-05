@@ -68,9 +68,11 @@ spec:
               # Copy only what belongs on a web server. Anything else in the
               # archive (README, LICENSE, tools/, deploy/, .github/) is skipped.
               cd "$src"
+              # history/ is an archive of previous versions of the site and is
+              # deliberately not served here; images/ was folded into assets/.
               for item in index.html 404.html azienda.html impianto.html \
                           servizi.html contatti.html note-legali.html \
-                          robots.txt sitemap.xml en assets images; do
+                          robots.txt sitemap.xml en assets; do
                 if [ -e "$item" ]; then cp -r "$item" /site/; fi
               done
 
