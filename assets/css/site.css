@@ -246,6 +246,13 @@ hr { border: 0; border-top: 1px solid var(--line); margin: 2.5rem 0; }
 @media (max-width: 980px) { .grid--3, .grid--4 { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 680px) { .grid--2, .grid--3, .grid--4 { grid-template-columns: 1fr; } }
 .grid--5 { grid-template-columns: repeat(5, 1fr); }
+
+/* For a grid whose last row is short: switch to flex so the trailing cards
+   centre under the row above instead of leaving a gap at the end of it. */
+.grid--center { display: flex; flex-wrap: wrap; justify-content: center; }
+.grid--center > * { flex: 0 1 calc((100% - 2 * 1.4rem) / 3); }
+@media (max-width: 980px) { .grid--center > * { flex-basis: calc((100% - 1.4rem) / 2); } }
+@media (max-width: 680px) { .grid--center > * { flex-basis: 100%; } }
 @media (max-width: 1080px) { .grid--5 { grid-template-columns: repeat(3, 1fr); } }
 @media (max-width: 680px)  { .grid--5 { grid-template-columns: 1fr; } }
 
