@@ -432,6 +432,11 @@ hr { border: 0; border-top: 1px solid var(--line); margin: 2.5rem 0; }
 .cookie-bar .btn { padding: .6rem 1.1rem; font-size: .88rem; }
 
 /* ---------- Utilities ---------- */
+/* The hidden attribute only sets display:none at user-agent level, which any
+   later display rule beats - .nav a is display:block and .grid is display:grid,
+   so both would render an element marked hidden. This makes it stick. */
+[hidden] { display: none !important; }
+
 .mt-0 { margin-top: 0; } .mb-0 { margin-bottom: 0; }
 .mt-2 { margin-top: 2rem; } .mb-2 { margin-bottom: 2rem; }
 .text-center { text-align: center; }
