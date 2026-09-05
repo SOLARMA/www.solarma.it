@@ -94,6 +94,23 @@ def main():
             page.wait_for_timeout(250)
             page.emulate_media(media="screen")
             page.add_style_tag(content=PAGE_BREAK_CSS)
+
+            # Gallery images carry loading="lazy", so in a headless render
+            # everything below the fold stays unloaded and would be printed as
+            # empty boxes. Force them to load and wait for every one.
+            page.evaluate("""async () => {
+                document.querySelectorAll('img[loading="lazy"]')
+                        .forEach(img => { img.loading = 'eager'; });
+                await Promise.all([...document.images].map(img =>
+                    img.complete ? Promise.resolve()
+                                 : new Promise(done => { img.onload = img.onerror = done; })));
+            }""")
+            missing = page.evaluate(
+                "[...document.images].filter(i => !i.complete || i.naturalWidth === 0).length")
+            if missing:
+                raise SystemExit(
+                    "%s: %d image(s) failed to load; refusing to write a PDF with blank figures"
+                    % (path, missing))
             part = BUILD / ("_part-%02d.pdf" % index)
             page.pdf(path=str(part), width="1280px", print_background=True,
                      margin={"top": "0", "bottom": "0", "left": "0", "right": "0"})
