@@ -364,6 +364,19 @@ hr { border: 0; border-top: 1px solid var(--line); margin: 2.5rem 0; }
   color: var(--ink-mute); font-size: .85rem;
 }
 
+/* ---------- Photo gallery ---------- */
+.gallery figure {
+  display: flex; flex-direction: column; margin: 0; overflow: hidden; background: #fff;
+  border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow-sm);
+}
+.gallery img {
+  display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover;
+  background: var(--bg-alt);
+}
+.gallery figcaption {
+  padding: .95rem 1.15rem; font-size: .88rem; line-height: 1.5; color: var(--ink-soft);
+}
+
 /* ---------- Project card ---------- */
 .project {
   display: flex; flex-direction: column; overflow: hidden; background: #fff;
