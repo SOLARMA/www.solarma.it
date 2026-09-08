@@ -1,0 +1,29 @@
+# Hostname, ingress class and TLS issuer for the k3s-gmhome cluster.
+#
+# CHECK THESE THREE VALUES against gmacario/gmhome-infra before applying:
+#   1. host              - the name you want the site published under
+#   2. ingressClassName  - `kubectl get ingressclass`
+#   3. cluster-issuer    - `kubectl get clusterissuer`
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: solarma-site
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+spec:
+  ingressClassName: traefik
+  tls:
+    - hosts:
+        - solarma.gmhome.example      # <-- set me
+      secretName: solarma-site-tls
+  rules:
+    - host: solarma.gmhome.example    # <-- set me
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: solarma-site
+                port:
+                  name: http

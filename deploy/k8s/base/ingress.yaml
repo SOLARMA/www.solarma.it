@@ -1,0 +1,28 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: solarma-site
+  labels:
+    app.kubernetes.io/name: solarma-site
+  annotations:
+    # VERIFY against gmhome-infra: the ClusterIssuer name is cluster-specific.
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+spec:
+  # VERIFY against gmhome-infra: k3s ships Traefik by default, but many
+  # homelabs disable it and install ingress-nginx instead. `kubectl get
+  # ingressclass` on the cluster settles it.
+  ingressClassName: traefik
+  tls:
+    - hosts: ["solarma.example.invalid"]   # replaced by the overlay
+      secretName: solarma-site-tls
+  rules:
+    - host: "solarma.example.invalid"      # replaced by the overlay
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: solarma-site
+                port:
+                  name: http

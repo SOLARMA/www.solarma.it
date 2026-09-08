@@ -1,0 +1,134 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: solarma-site
+  labels:
+    app.kubernetes.io/name: solarma-site
+    app.kubernetes.io/component: web
+spec:
+  replicas: 1
+  revisionHistoryLimit: 3
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: solarma-site
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: solarma-site
+        app.kubernetes.io/component: web
+      annotations:
+        # Roll the pods when the served content should be refetched:
+        #   kubectl -n solarma rollout restart deployment/solarma-site
+        solarma.it/content-source: archive
+    spec:
+      automountServiceAccountToken: false
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 101          # nginx user in nginx-unprivileged
+        runAsGroup: 101
+        fsGroup: 101            # makes the shared emptyDir group-writable
+        seccompProfile:
+          type: RuntimeDefault
+
+      initContainers:
+        # Downloads the site archive and unpacks it into the emptyDir that
+        # nginx serves. Needs egress to the archive host (codeload.github.com
+        # by default) at pod start; if that is blocked, use the baked image
+        # instead - see deploy/docker/Dockerfile.
+        - name: fetch-site
+          image: docker.io/library/alpine:3.20
+          imagePullPolicy: IfNotPresent
+          envFrom:
+            - configMapRef:
+                name: solarma-site-source
+          command: ["/bin/sh", "-eu", "-c"]
+          args:
+            - |
+              echo "fetching $SITE_ARCHIVE_URL"
+              # busybox wget and unzip: both are in the alpine base image, so
+              # this runs without an apk install and without network access to
+              # a package mirror.
+              wget -q -O /tmp/site.zip "$SITE_ARCHIVE_URL"
+              mkdir -p /tmp/unpacked
+              unzip -q /tmp/site.zip -d /tmp/unpacked
+
+              # GitHub archives (and the reviewer package) wrap everything in a
+              # single top-level directory. Strip it when that is what we got.
+              src=/tmp/unpacked
+              if [ "$(ls -1 /tmp/unpacked | wc -l)" -eq 1 ]; then
+                only="/tmp/unpacked/$(ls -1 /tmp/unpacked)"
+                [ -d "$only" ] && src="$only"
+              fi
+
+              # Copy only what belongs on a web server. Anything else in the
+              # archive (README, LICENSE, tools/, deploy/, .github/) is skipped.
+              cd "$src"
+              # history/ is an archive of previous versions of the site and is
+              # deliberately not served here; images/ was folded into assets/.
+              for item in index.html 404.html azienda.html impianto.html \
+                          servizi.html contatti.html note-legali.html \
+                          robots.txt sitemap.xml en assets; do
+                if [ -e "$item" ]; then cp -r "$item" /site/; fi
+              done
+
+              # Fail loudly rather than serving an empty site.
+              test -f /site/index.html
+              echo "unpacked $(find /site -type f | wc -l) files"
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop: ["ALL"]
+          resources:
+            requests: {cpu: 50m, memory: 64Mi}
+            limits:   {cpu: 500m, memory: 128Mi}
+          volumeMounts:
+            - {name: site, mountPath: /site}
+            - {name: tmp,  mountPath: /tmp}
+
+      containers:
+        - name: nginx
+          image: docker.io/nginxinc/nginx-unprivileged:1.27-alpine
+          imagePullPolicy: IfNotPresent
+          ports:
+            - {name: http, containerPort: 8080, protocol: TCP}
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop: ["ALL"]
+          resources:
+            requests: {cpu: 10m,  memory: 32Mi}
+            limits:   {cpu: 200m, memory: 128Mi}
+          startupProbe:
+            httpGet: {path: /healthz, port: http}
+            failureThreshold: 12
+            periodSeconds: 5
+          readinessProbe:
+            httpGet: {path: /healthz, port: http}
+            periodSeconds: 10
+          livenessProbe:
+            httpGet: {path: /healthz, port: http}
+            periodSeconds: 20
+          volumeMounts:
+            - {name: site,       mountPath: /usr/share/nginx/html, readOnly: true}
+            - {name: nginx-conf, mountPath: /etc/nginx/conf.d/default.conf, subPath: default.conf, readOnly: true}
+            # readOnlyRootFilesystem means nginx needs writable scratch space
+            - {name: tmp,        mountPath: /tmp}
+            - {name: cache,      mountPath: /var/cache/nginx}
+
+      volumes:
+        - name: site
+          emptyDir: {}
+        - name: tmp
+          emptyDir: {}
+        - name: cache
+          emptyDir: {}
+        - name: nginx-conf
+          configMap:
+            name: solarma-site-nginx

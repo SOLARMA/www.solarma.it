@@ -1,0 +1,19 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+# Everything cluster-specific lives in this directory. The base is portable.
+
+namespace: solarma
+
+resources:
+  - ../../base
+
+patches:
+  - path: patch-ingress.yaml
+  - path: patch-site-source.yaml
+
+images:
+  - name: docker.io/nginxinc/nginx-unprivileged
+    newTag: 1.27-alpine
+  - name: docker.io/library/alpine
+    newTag: "3.20"

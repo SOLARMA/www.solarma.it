@@ -1,0 +1,4 @@
+Sitemap: http://www.solarma.it/sitemap.xml
+
+User-agent: *
+Disallow:

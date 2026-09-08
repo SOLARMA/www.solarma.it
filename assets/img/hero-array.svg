@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 420" role="img" aria-label="Illustrazione di un impianto fotovoltaico">
+  <defs>
+    <linearGradient id="sun" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ffd166"/><stop offset="100%" stop-color="#f0a500"/>
+    </linearGradient>
+    <linearGradient id="panel" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#2f7fb5"/><stop offset="55%" stop-color="#17557f"/><stop offset="100%" stop-color="#0d3c5c"/>
+    </linearGradient>
+    <linearGradient id="panel2" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#3d94cc"/><stop offset="60%" stop-color="#1d6795"/><stop offset="100%" stop-color="#114b70"/>
+    </linearGradient>
+    <linearGradient id="ground" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0e4a6f" stop-opacity=".55"/><stop offset="100%" stop-color="#0e4a6f" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <!-- sun -->
+  <circle cx="392" cy="96" r="46" fill="url(#sun)" opacity=".95"/>
+  <circle cx="392" cy="96" r="66" fill="none" stroke="#f0a500" stroke-opacity=".35" stroke-width="1.5"/>
+  <circle cx="392" cy="96" r="88" fill="none" stroke="#f0a500" stroke-opacity=".18" stroke-width="1.5"/>
+
+  <!-- hills -->
+  <path d="M0 300 C 90 262 150 292 232 276 C 318 259 392 288 520 262 L520 420 L0 420 Z" fill="url(#ground)"/>
+
+  <!-- back row -->
+  <g opacity=".55">
+    <path d="M92 232 L206 214 L226 244 L112 262 Z" fill="url(#panel2)" stroke="#8ec6ea" stroke-opacity=".35"/>
+    <path d="M150 262 L150 292" stroke="#8ec6ea" stroke-opacity=".4" stroke-width="4" stroke-linecap="round"/>
+    <path d="M188 258 L188 288" stroke="#8ec6ea" stroke-opacity=".4" stroke-width="4" stroke-linecap="round"/>
+  </g>
+  <g opacity=".55">
+    <path d="M262 224 L376 206 L396 236 L282 254 Z" fill="url(#panel2)" stroke="#8ec6ea" stroke-opacity=".35"/>
+    <path d="M320 254 L320 284" stroke="#8ec6ea" stroke-opacity=".4" stroke-width="4" stroke-linecap="round"/>
+    <path d="M358 250 L358 280" stroke="#8ec6ea" stroke-opacity=".4" stroke-width="4" stroke-linecap="round"/>
+  </g>
+
+  <!-- front row: large array -->
+  <g>
+    <path d="M58 320 L268 286 L316 348 L106 382 Z" fill="url(#panel)" stroke="#9fd2f2" stroke-opacity=".5" stroke-width="1.5"/>
+    <g stroke="#9fd2f2" stroke-opacity=".38" stroke-width="1.2">
+      <path d="M110 311 L158 373"/><path d="M162 302 L210 364"/><path d="M214 294 L262 356"/>
+      <path d="M76 342 L288 308"/>
+    </g>
+    <path d="M150 372 L150 404" stroke="#7fb6d8" stroke-width="6" stroke-linecap="round"/>
+    <path d="M258 354 L258 386" stroke="#7fb6d8" stroke-width="6" stroke-linecap="round"/>
+  </g>
+
+  <g>
+    <path d="M300 300 L462 274 L500 322 L338 348 Z" fill="url(#panel)" stroke="#9fd2f2" stroke-opacity=".5" stroke-width="1.5"/>
+    <g stroke="#9fd2f2" stroke-opacity=".38" stroke-width="1.2">
+      <path d="M340 294 L378 342"/><path d="M392 286 L430 334"/>
+      <path d="M316 320 L481 297"/>
+    </g>
+    <path d="M370 341 L370 368" stroke="#7fb6d8" stroke-width="6" stroke-linecap="round"/>
+    <path d="M462 327 L462 354" stroke="#7fb6d8" stroke-width="6" stroke-linecap="round"/>
+  </g>
+
+  <!-- energy sparks -->
+  <g fill="#f0a500">
+    <path d="M330 150 l-16 30 h13 l-9 26 24 -34 h-13 l10 -22 z" opacity=".9"/>
+  </g>
+  <g stroke="#f0a500" stroke-opacity=".5" stroke-width="1.5" stroke-linecap="round" fill="none">
+    <path d="M262 176 q 40 -34 78 -14"/>
+    <path d="M156 200 q 54 -52 116 -34"/>
+  </g>
+</svg>
