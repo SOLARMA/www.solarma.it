@@ -22,7 +22,8 @@ an alternative Kubernetes deploy exists under `deploy/`.
 sitemap.xml           All 12 pages, with hreflang alternates
 /deploy/              Kubernetes manifests (base + k3s-gmhome overlay) and a Dockerfile —
                       alternative to GitHub Pages, see deploy/k8s/README.md
-/tools/               Python scripts to package the site for offline/email review
+/tools/               Python scripts: version stamping, packaging the site for
+                      offline/email review
 /history/2014/, /history/2023/  Archived prior versions of the site, kept for reference only
                       — not part of the live site, do not edit
 ```
@@ -43,6 +44,12 @@ sitemap.xml           All 12 pages, with hreflang alternates
   paths there would resolve against the wrong folder).
 - GA4 analytics loads only after explicit cookie-banner consent (choice stored in
   `localStorage`); nothing third-party is fetched before that.
+- **Site version** is committed into the HTML, not generated at deploy time and not fetched
+  at runtime — it must survive the no-build-step rule and pages opened from disk. Each page
+  carries it as `<meta name="version">` and as the last entry of the footer legal strip.
+  Never hand-edit those 26 values: `python3 tools/set-site-version.py` rewrites them all
+  (idempotent), `--check` verifies them, `-v vX.Y.Z` sets an explicit string. Stamp and
+  commit *before* tagging a release, so the tagged commit carries its own version.
 
 ## Local preview
 
