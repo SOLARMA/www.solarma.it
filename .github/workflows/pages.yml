@@ -25,6 +25,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v7
 
+      # A half-applied version stamp leaves some pages naming one release and
+      # the rest another, which is worse than no version at all -- catch it
+      # before it is published. Deliberately not compared against
+      # `git describe`: main normally sits ahead of the last tag, so that
+      # comparison would fail every deploy between releases.
+      - name: Check the stamped site version is consistent
+        run: python3 tools/set-site-version.py --check
+
       - name: Configure Pages
         uses: actions/configure-pages@v6
 

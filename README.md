@@ -53,22 +53,30 @@ repository is what the visitor sees, with no build step and no JavaScript involv
 so it can be re-run freely:
 
 ```sh
-python3 tools/set-site-version.py             # write `git describe --tags --always`
-python3 tools/set-site-version.py -v v3.0.2   # write an explicit version
-python3 tools/set-site-version.py --check     # verify only, exit 1 on any drift
+python3 tools/set-site-version.py                    # write `git describe --tags --always`
+python3 tools/set-site-version.py -v v3.0.2          # write an explicit version
+python3 tools/set-site-version.py --check            # verify the pages agree
+python3 tools/set-site-version.py --check -v v3.0.2  # ...and carry this exact version
 ```
+
+`--check` on its own only asks that every page carry a version and that they all agree
+on it — it does **not** compare them against `git describe`. Between releases `main` sits
+ahead of the last tag, so that comparison would fail on every commit and be useless as a
+guard. The Pages deploy workflow runs exactly this form, so a half-applied stamp — some
+pages naming one release, the rest another — fails the deploy instead of being published.
 
 Releasing:
 
 ```sh
 python3 tools/set-site-version.py -v v3.0.2
+python3 tools/set-site-version.py --check -v v3.0.2
 git commit -am "Release v3.0.2"
 git tag -a v3.0.2 -m "v3.0.2" && git push --follow-tags
 ```
 
 Stamp *before* tagging, so that the tagged commit is the one carrying its own version.
-Run `--check` to confirm the pages agree with each other and with `git describe`; between
-releases the committed version names the last release, not every intermediate commit.
+Between releases the committed version names the last release, not every intermediate
+commit.
 
 ## Local preview
 

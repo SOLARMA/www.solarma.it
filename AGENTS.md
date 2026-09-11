@@ -50,6 +50,10 @@ sitemap.xml           All 12 pages, with hreflang alternates
   Never hand-edit those 26 values: `python3 tools/set-site-version.py` rewrites them all
   (idempotent), `--check` verifies them, `-v vX.Y.Z` sets an explicit string. Stamp and
   commit *before* tagging a release, so the tagged commit carries its own version.
+  `--check` alone requires only that the pages agree with each other — never that they
+  match `git describe`, which is ahead of the last tag on any commit after a release and
+  would fail every deploy. The Pages workflow runs it as a guard; `--check -v vX.Y.Z` is
+  the stricter release form.
 
 ## Local preview
 
