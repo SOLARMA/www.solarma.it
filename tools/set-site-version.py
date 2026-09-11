@@ -24,12 +24,18 @@ Release procedure
     git commit -am "Release v3.0.2"
     git tag -a v3.0.2 -m "v3.0.2" && git push --follow-tags
 
-`--check` exits non-zero when a page carries no version, when the pages
-disagree with each other, or when they disagree with the working tree
-(`git describe --tags --always`). Useful before tagging a release.
+`--check` exits non-zero when a page carries no version or when the pages
+disagree with each other. It does NOT compare them against `git describe`:
+between releases `main` sits ahead of the last tag, so that comparison would
+fail on every commit, which would make the check useless as a CI guard. Pass
+`-v` alongside it to also require one exact version -- that is the release
+check, run after stamping and before tagging:
+
+    python3 tools/set-site-version.py --check -v v3.0.2
 """
 
 import argparse
+import collections
 import re
 import subprocess
 import sys
@@ -115,8 +121,16 @@ def read_versions(text):
             footer.group(1) if footer else None)
 
 
-def check(expected):
+def check(expected=None):
+    """Problems with the stamped versions; empty list when all is well.
+
+    Without `expected`, the pages only have to agree with one another -- the
+    version most of them carry sets what the rest are held to, so a single
+    half-stamped page is named as the outlier rather than the other twelve.
+    With it, every page must carry that exact version.
+    """
     problems = []
+    seen = []          # (rel, version) for every value actually found
     for path, _lang in pages():
         rel = path.relative_to(ROOT)
         if not path.is_file():
@@ -130,8 +144,19 @@ def check(expected):
         if meta and footer and meta != footer:
             problems.append("%s: meta %s but footer %s" % (rel, meta, footer))
         for found in (meta, footer):
-            if found and expected and found != expected:
-                problems.append("%s: %s, expected %s" % (rel, found, expected))
+            # Once per page per distinct value: a page whose meta and footer
+            # both drifted is one problem to report, not two.
+            if found and (rel, found) not in seen:
+                seen.append((rel, found))
+
+    # A half-applied stamp leaves the pages internally consistent but at two
+    # different versions, which is the failure this guards the deploy against.
+    target = expected
+    if not target and seen:
+        target = collections.Counter(v for _rel, v in seen).most_common(1)[0][0]
+    for rel, found in seen:
+        if target and found != target:
+            problems.append("%s: %s, expected %s" % (rel, found, target))
     return problems
 
 
@@ -141,24 +166,37 @@ def main():
     ap.add_argument("-v", "--version", metavar="STRING",
                     help="version to write (default: git describe)")
     ap.add_argument("--check", action="store_true",
-                    help="verify the pages, write nothing, exit 1 on drift")
+                    help="verify the pages agree with each other, write "
+                         "nothing, exit 1 on drift; with -v, also require "
+                         "that exact version")
     args = ap.parse_args()
+
+    total = len(PAGES_IT) + len(PAGES_EN)
+
+    if args.check:
+        # No fallback to git describe here on purpose: main is normally ahead
+        # of the last tag, and requiring a match would fail every deploy.
+        problems = check(args.version)
+        if problems:
+            print("version check failed%s:"
+                  % (" against %s" % args.version if args.version else ""))
+            for p in problems:
+                print("  %s" % p)
+            sys.exit(1)
+        if args.version:
+            print("version check passed: all %d pages report %s"
+                  % (total, args.version))
+        else:
+            found = read_versions((ROOT / PAGES_IT[0]).read_text(
+                encoding="utf-8"))[0]
+            print("version check passed: all %d pages agree on %s"
+                  % (total, found))
+        return
 
     version = args.version or git_describe()
     if not version:
         sys.exit("cannot determine a version: not a git checkout, "
                  "pass one with --version")
-
-    if args.check:
-        problems = check(version)
-        if problems:
-            print("version check failed against %s:" % version)
-            for p in problems:
-                print("  %s" % p)
-            sys.exit(1)
-        print("version check passed: all %d pages report %s"
-              % (len(PAGES_IT) + len(PAGES_EN), version))
-        return
 
     changed = 0
     for path, lang in pages():
@@ -173,7 +211,7 @@ def main():
             path.write_text(after, encoding="utf-8")
             changed += 1
     print("version %s written; %d of %d pages changed"
-          % (version, changed, len(PAGES_IT) + len(PAGES_EN)))
+          % (version, changed, total))
 
 
 if __name__ == "__main__":
