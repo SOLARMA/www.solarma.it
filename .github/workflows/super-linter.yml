@@ -39,7 +39,17 @@ jobs:
           VALIDATE_ALL_CODEBASE: false
           FILTER_REGEX_EXCLUDE: (^|/)history/
 
-          # --- Enabled: verified clean (or fixed) against this repository ---
+          # Super-linter refuses to start if any VALIDATE_* is set to true
+          # alongside another set to false -- it supports an opt-in list or
+          # an opt-out list, never both in the same run ("Behavior not
+          # supported, please either only include (VALIDATE=true) or exclude
+          # (VALIDATE=false) linters, but not both", confirmed by an actual
+          # failing run against this repo). So this is a pure opt-in list:
+          # every linter not named below simply stays off, including CSS
+          # (stylelint) and the security/compliance scanners (Checkov, Trivy,
+          # the GitHub Actions zizmor variant) -- see the PR description for
+          # why CSS in particular needs a repo-specific config before it can
+          # be turned on here.
           VALIDATE_YAML: true
           VALIDATE_GITHUB_ACTIONS: true
           VALIDATE_DOCKERFILE_HADOLINT: true
@@ -47,25 +57,3 @@ jobs:
           VALIDATE_MARKDOWN: true
           VALIDATE_HTML: true
           VALIDATE_JAVASCRIPT_ES: true
-
-          # --- Explicitly off, not just left unset ---
-          # CSS: default stylelint config reports ~300 problems against
-          # assets/css/site.css, almost all of them this project's own
-          # conventions read as violations -- BEM class names (__, --) hit
-          # selector-class-pattern, and the deliberately dense one-line
-          # utility/state rules hit declaration-block-single-line-max-
-          # declarations. Revisit with a repo-specific stylelint config if
-          # CSS linting is wanted; that's a separate, larger piece of work
-          # than adding this workflow.
-          VALIDATE_CSS: false
-          # Security/compliance scanners with a much broader, stricter remit
-          # than the linters above -- turning them on is a deliberate choice
-          # for someone to make on its own terms, not a side effect of
-          # wiring up basic linting.
-          VALIDATE_CHECKOV: false
-          VALIDATE_TRIVY: false
-          VALIDATE_GITHUB_ACTIONS_ZIZMOR: false
-
-      # Everything else Super-linter can validate stays off by omission: once
-      # any VALIDATE_* is set to true, only the linters explicitly enabled
-      # above run.
