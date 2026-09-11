@@ -44,10 +44,10 @@
   var bar = document.getElementById('cookie-bar');
 
   function readConsent() {
-    try { return window.localStorage.getItem(KEY); } catch (e) { return null; }
+    try { return window.localStorage.getItem(KEY); } catch { return null; }
   }
   function writeConsent(value) {
-    try { window.localStorage.setItem(KEY, value); } catch (e) { /* storage blocked — session only */ }
+    try { window.localStorage.setItem(KEY, value); } catch { /* storage blocked — session only */ }
   }
 
   function loadAnalytics() {
@@ -86,7 +86,7 @@
   Array.prototype.forEach.call(reopen, function (el) {
     el.addEventListener('click', function (e) {
       e.preventDefault();
-      try { window.localStorage.removeItem(KEY); } catch (err) { /* ignore */ }
+      try { window.localStorage.removeItem(KEY); } catch { /* ignore */ }
       if (bar) { bar.hidden = false; bar.scrollIntoView({ block: 'nearest' }); }
     });
   });

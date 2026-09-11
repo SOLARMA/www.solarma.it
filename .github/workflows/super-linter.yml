@@ -1,0 +1,59 @@
+name: Super-Linter
+
+# Runs Super-linter over changed files only (VALIDATE_ALL_CODEBASE: false),
+# scoped to a deliberately small set of linters -- see the comment below the
+# env block for what's off and why.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+  statuses: write
+
+jobs:
+  super-linter:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+        with:
+          # Super-linter diffs against git history to find changed files;
+          # a shallow checkout would leave it nothing to diff against.
+          fetch-depth: 0
+
+      - name: Super-linter
+        uses: super-linter/super-linter@v8.7.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DEFAULT_BRANCH: main
+          # Lint only what changed in this push/PR, not the whole repository
+          # every time: /history/ alone holds old HTML/CSS/JS/Markdown that
+          # would fail every linter below under today's conventions, and it
+          # is kept for reference only -- "not part of the live site, do not
+          # edit" (AGENTS.md). Excluding it here is a second, independent
+          # guard for the rare case it gets touched anyway.
+          VALIDATE_ALL_CODEBASE: false
+          FILTER_REGEX_EXCLUDE: (^|/)history/
+
+          # Super-linter refuses to start if any VALIDATE_* is set to true
+          # alongside another set to false -- it supports an opt-in list or
+          # an opt-out list, never both in the same run ("Behavior not
+          # supported, please either only include (VALIDATE=true) or exclude
+          # (VALIDATE=false) linters, but not both", confirmed by an actual
+          # failing run against this repo). So this is a pure opt-in list:
+          # every linter not named below simply stays off, including CSS
+          # (stylelint) and the security/compliance scanners (Checkov, Trivy,
+          # the GitHub Actions zizmor variant) -- see the PR description for
+          # why CSS in particular needs a repo-specific config before it can
+          # be turned on here.
+          VALIDATE_YAML: true
+          VALIDATE_GITHUB_ACTIONS: true
+          VALIDATE_DOCKERFILE_HADOLINT: true
+          VALIDATE_PYTHON_FLAKE8: true
+          VALIDATE_MARKDOWN: true
+          VALIDATE_HTML: true
+          VALIDATE_JAVASCRIPT_ES: true

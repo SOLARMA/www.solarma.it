@@ -11,7 +11,7 @@ an alternative Kubernetes deploy exists under `deploy/`.
 
 ## Structure
 
-```
+```text
 /                     Italian site (default): index, azienda, impianto, servizi,
                       contatti, note-legali
 /en/                  English mirror of the same six pages
@@ -54,6 +54,19 @@ sitemap.xml           All 12 pages, with hreflang alternates
   match `git describe`, which is ahead of the last tag on any commit after a release and
   would fail every deploy. The Pages workflow runs it as a guard; `--check -v vX.Y.Z` is
   the stricter release form.
+- **Linting**: `.github/workflows/super-linter.yml` runs Super-linter on changed files for
+  every push and PR against `main` — YAML, GitHub Actions, Dockerfile (hadolint), Python
+  (flake8), Markdown, HTML and JavaScript (ESLint). CSS is deliberately left out: this
+  project's BEM class names (`__`, `--`) and dense one-line utility rules read as
+  violations under a generic stylelint config, and reconciling that is a separate piece of
+  work from adding the linter. `history/` is excluded from all of it — it is old code kept
+  for reference, not a target for today's conventions. The five dotfile configs at the repo
+  root (`.flake8`, `.yaml-lint.yml`, `.markdown-lint.yml`, `.hadolint.yaml`, `.htmlhintrc`)
+  and `eslint.config.mjs` are pinned copies of Super-linter's own bundled defaults (one rule
+  disabled in `.htmlhintrc` for the BEM naming clash above) — kept so a future change to
+  those bundled defaults can't silently start failing this repo's existing, intentional
+  style: long single-line values in the nginx ConfigMap and CSP header, aligned flow-style
+  YAML in `deployment.yaml`, and long-line prose in these docs.
 
 ## Local preview
 
