@@ -57,3 +57,13 @@ jobs:
           VALIDATE_MARKDOWN: true
           VALIDATE_HTML: true
           VALIDATE_JAVASCRIPT_ES: true
+
+          # Super-linter looks up each linter's config file under
+          # LINTER_RULES_PATH, which defaults to .github/linters -- not the
+          # repo root. The pinned configs below live there for exactly that
+          # reason (confirmed by an actual failing run against this repo:
+          # htmlhint silently fell back to Super-linter's own bundled
+          # default and reported 390 errors before they were moved).
+          # eslint.config.mjs is the one exception, deliberately left at the
+          # repo root: ESLint's own flat-config discovery finds it there
+          # independently of LINTER_RULES_PATH.
