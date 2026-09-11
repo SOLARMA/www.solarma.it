@@ -208,8 +208,141 @@
           <h4>Formazione e affiancamento</h4>
           <p>Corsi e consulenza su Linux embedded e tecnologie IoT per aziende che operano in settori non concorrenti.</p>
         </div>
+        <div class="card" style="grid-column:1/-1">
+          <div class="card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v5.5c0 4.3-2.9 7.7-7 8.5-4.1-.8-7-4.2-7-8.5V6Z"/><path d="m9 12 2.2 2.2L15.5 10"/></svg></div>
+          <h4>Conformit&agrave; e sicurezza funzionale</h4>
+          <p>Analisi e supporto nella definizione del processo e delle attivit&agrave; necessarie a garantire la conformit&agrave; alle norme di sicurezza funzionale ISO&nbsp;26262 e IEC&nbsp;61511, al regolamento europeo sulla ciber-resilienza (CRA) e alla direttiva RED, per sistemi embedded dei settori automotive e manifatturiero.</p>
+        </div>
       </div>
       <p style="margin:1.6rem 0 0;font-size:.88rem;color:var(--ink-mute)">Settori in cui questa esperienza &egrave; maturata: automotive e infotainment di bordo, macchine industriali, robotica, telecomunicazioni, energia.</p>
+    </div>
+
+    <div style="margin-top:clamp(2.4rem,2rem+2vw,3.4rem)">
+      <div class="section-head" style="margin-bottom:1.8rem">
+        <span class="eyebrow">Realizzazioni</span>
+        <h3 style="font-size:1.5rem">Alcuni progetti recenti</h3>
+        <p style="margin-bottom:0">Esempi concreti di lavori portati a termine, dal monitoraggio del nostro impianto fotovoltaico all&rsquo;infrastruttura e al firmware per sistemi embedded.</p>
+      </div>
+      <div class="grid grid--3">
+        <!-- TODO SOLARMA: progetto 1 &mdash; sostituire il segnaposto con
+           il cruscotto Grafana della produzione (gmacariosolarma.grafana.net, dashboard solpev-production).
+           Esportare un&rsquo;immagine: la dashboard richiede autenticazione, quindi non va collegata. -->
+        <article class="project">
+          <div class="media-placeholder">
+            <div><strong style="display:block;color:var(--ink)">Schermata del cruscotto</strong>Grafana: produzione dell&rsquo;impianto fotovoltaico</div>
+          </div>
+          <div class="project__body">
+            <span class="project__meta">Software &middot; Monitoraggio impianti</span>
+            <h3 class="project__title">Telemetria di impianto da inverter di marche diverse</h3>
+            <p>Sistema software che raccoglie i dati di produzione e i log di sistema da inverter di costruttori differenti e li archivia in un cloud privato, dove vengono analizzati per seguire l&rsquo;energia prodotta e abilitare la manutenzione predittiva dell&rsquo;impianto.</p>
+            <ul class="project__tech">
+              <li>Prometheus</li>
+              <li>Loki</li>
+              <li>Grafana</li>
+              <li>Terraform</li>
+              <li>Ansible</li>
+              <li>Docker</li>
+            </ul>
+          </div>
+        </article>
+        <!-- TODO SOLARMA: progetto 2 &mdash; sostituire il segnaposto con
+           uno schema o una fotografia dei nodi del cluster, dal post sul blog collegato qui sotto. -->
+        <article class="project">
+          <div class="media-placeholder">
+            <div><strong style="display:block;color:var(--ink)">Schema del cluster</strong>Nodi e rete del cluster edge</div>
+          </div>
+          <div class="project__body">
+            <span class="project__meta">Infrastruttura &middot; Edge computing</span>
+            <h3 class="project__title">Cluster Kubernetes in alta affidabilit&agrave; per dispositivi edge</h3>
+            <p>Installazione e configurazione automatizzate, descritte interamente come codice, di cluster Kubernetes in alta affidabilit&agrave; su dispositivi edge con architettura Intel e ARM.</p>
+            <ul class="project__tech">
+              <li>Proxmox VE</li>
+              <li>Ansible</li>
+              <li>K3s</li>
+              <li>Tailscale Operator</li>
+              <li>Longhorn</li>
+              <li>Traefik</li>
+            </ul>
+            <p class="project__link"><a href="https://blog.gmacario.it/posts/2026-07-27-bringing-up-k3s-gmhome-with-ansible/" rel="noopener" target="_blank">Come &egrave; stato costruito, passo per passo &rarr;</a></p>
+          </div>
+        </article>
+        <!-- TODO SOLARMA: progetto 3 &mdash; sostituire il segnaposto con
+           una schermata anonimizzata di Open WebUI. Non pubblicare il collegamento alla conversazione:
+           &egrave; un servizio privato. -->
+        <article class="project">
+          <div class="media-placeholder">
+            <div><strong style="display:block;color:var(--ink)">Schermata dell&rsquo;interfaccia</strong>Open WebUI in esecuzione in locale</div>
+          </div>
+          <div class="project__body">
+            <span class="project__meta">Infrastruttura &middot; Intelligenza artificiale</span>
+            <h3 class="project__title">Inferenza AI locale con modelli a pesi aperti</h3>
+            <p>Installazione e manutenzione di sistemi di inferenza eseguiti in locale e di agenti basati su large language model a pesi aperti, senza che i dati elaborati escano dall&rsquo;infrastruttura di chi li usa.</p>
+            <ul class="project__tech">
+              <li>Ubuntu Server</li>
+              <li>Tailscale</li>
+              <li>Docker Compose</li>
+              <li>Ollama</li>
+              <li>Open WebUI</li>
+              <li>MCP Server</li>
+            </ul>
+          </div>
+        </article>
+        <!-- TODO SOLARMA: progetto 4 &mdash; sostituire il segnaposto con
+           una schermata anonimizzata di VS Code con il progetto aperto (github.com/gmacario/gm-zephyr-minimal). -->
+        <article class="project">
+          <div class="media-placeholder">
+            <div><strong style="display:block;color:var(--ink)">Schermata dell&rsquo;ambiente</strong>Il development container aperto in Visual Studio Code</div>
+          </div>
+          <div class="project__body">
+            <span class="project__meta">Firmware &middot; Ambienti di sviluppo</span>
+            <h3 class="project__title">Ambiente di sviluppo containerizzato per Zephyr</h3>
+            <p>Development container per la compilazione del sistema operativo e lo sviluppo applicativo con Zephyr, su piattaforme Nordic e STM32: lo stesso ambiente sulla macchina di chi sviluppa e nella pipeline di integrazione.</p>
+            <ul class="project__tech">
+              <li>Zephyr Project</li>
+              <li>Visual Studio Code</li>
+              <li>Docker</li>
+              <li>GitHub Actions</li>
+            </ul>
+          </div>
+        </article>
+        <!-- TODO SOLARMA: progetto 5 &mdash; sostituire il segnaposto con
+           una fotografia della scheda o una schermata della pipeline. -->
+        <article class="project">
+          <div class="media-placeholder">
+            <div><strong style="display:block;color:var(--ink)">Fotografia della scheda</strong>L&rsquo;hardware su cui gira il firmware</div>
+          </div>
+          <div class="project__body">
+            <span class="project__meta">Firmware &middot; Integrazione continua</span>
+            <h3 class="project__title">Pipeline automatizzata di compilazione del firmware</h3>
+            <p>Pipeline di compilazione automatica del firmware per hardware su misura basato su SoC Espressif (ESP32) e Nordic (Arduino Nicla Sense ME), con build riproducibili a ogni modifica.</p>
+            <ul class="project__tech">
+              <li>PlatformIO</li>
+              <li>Visual Studio Code</li>
+              <li>GitHub Actions</li>
+            </ul>
+          </div>
+        </article>
+        <!-- TODO SOLARMA: progetto 6 &mdash; sostituire il segnaposto con
+           una schermata della build Yocto o del job Jenkins. -->
+        <article class="project">
+          <div class="media-placeholder">
+            <div><strong style="display:block;color:var(--ink)">Schermata della build</strong>La build dell&rsquo;immagine di sistema</div>
+          </div>
+          <div class="project__body">
+            <span class="project__meta">Linux embedded &middot; BSP</span>
+            <h3 class="project__title">Board support package e immagini di sistema su misura</h3>
+            <p>Costruzione di board support package e immagini di sistema personalizzate per sistemi embedded, con build ripetibili e tracciabili.</p>
+            <ul class="project__tech">
+              <li>Yocto Project</li>
+              <li>Docker</li>
+              <li>Jenkins</li>
+            </ul>
+          </div>
+        </article>
+      </div>
+      <!-- TODO SOLARMA: aggiungere una riga che dica che cosa faceva il progetto Myosotis;
+         qui non e' riportato perche' il dato non e' noto. -->
+      <p style="margin:1.6rem 0 0;font-size:.88rem;color:var(--ink-mute)">Il primo progetto sviluppato in partnership con il Politecnico di Torino &mdash; Dipartimento di Automatica e Informatica (DAUIN) &egrave; stato <strong>Myosotis</strong>, presentato nel 2016 alla Start Cup Piemonte Valle d&rsquo;Aosta.</p>
     </div>
   </div>
 </section>
