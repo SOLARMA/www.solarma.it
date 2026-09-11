@@ -60,13 +60,16 @@ sitemap.xml           All 12 pages, with hreflang alternates
   project's BEM class names (`__`, `--`) and dense one-line utility rules read as
   violations under a generic stylelint config, and reconciling that is a separate piece of
   work from adding the linter. `history/` is excluded from all of it — it is old code kept
-  for reference, not a target for today's conventions. The five dotfile configs at the repo
-  root (`.flake8`, `.yaml-lint.yml`, `.markdown-lint.yml`, `.hadolint.yaml`, `.htmlhintrc`)
-  and `eslint.config.mjs` are pinned copies of Super-linter's own bundled defaults (one rule
-  disabled in `.htmlhintrc` for the BEM naming clash above) — kept so a future change to
-  those bundled defaults can't silently start failing this repo's existing, intentional
-  style: long single-line values in the nginx ConfigMap and CSP header, aligned flow-style
-  YAML in `deployment.yaml`, and long-line prose in these docs.
+  for reference, not a target for today's conventions. The five dotfile configs under
+  `.github/linters/` (`.flake8`, `.yaml-lint.yml`, `.markdown-lint.yml`, `.hadolint.yaml`,
+  `.htmlhintrc`) are pinned copies of Super-linter's own bundled defaults (one rule disabled
+  in `.htmlhintrc` for the BEM naming clash above) — kept so a future change to those bundled
+  defaults can't silently start failing this repo's existing, intentional style: long
+  single-line values in the nginx ConfigMap and CSP header, aligned flow-style YAML in
+  `deployment.yaml`, and long-line prose in these docs. They live under `.github/linters/`
+  because that is `LINTER_RULES_PATH`'s default — Super-linter does not look at the repo root
+  for these — while `eslint.config.mjs` stays at the repo root, since ESLint's own flat-config
+  discovery finds it there regardless of `LINTER_RULES_PATH`.
 
 ## Local preview
 

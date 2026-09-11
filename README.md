@@ -52,11 +52,14 @@ reads this project's BEM class names and dense one-line utility rules as violati
 `history/` is excluded outright, since it's old code kept for reference rather than a
 target for today's conventions.
 
-The five dotfiles at the repo root (`.flake8`, `.yaml-lint.yml`, `.markdown-lint.yml`,
-`.hadolint.yaml`, `.htmlhintrc`) and `eslint.config.mjs` are pinned copies of Super-linter's
-own bundled defaults, so a future change to those defaults can't silently start failing
-this repo's existing style (long single-line values in the nginx ConfigMap and CSP header,
-aligned YAML in `deployment.yaml`, long-line prose in these docs).
+The five configs under `.github/linters/` (`.flake8`, `.yaml-lint.yml`, `.markdown-lint.yml`,
+`.hadolint.yaml`, `.htmlhintrc`) are pinned copies of Super-linter's own bundled defaults, so
+a future change to those defaults can't silently start failing this repo's existing style
+(long single-line values in the nginx ConfigMap and CSP header, aligned YAML in
+`deployment.yaml`, long-line prose in these docs). They live there because Super-linter
+looks up each linter's config under `LINTER_RULES_PATH` (default `.github/linters`), not the
+repo root — `eslint.config.mjs` is the exception, kept at the repo root because ESLint finds
+it there on its own, independently of `LINTER_RULES_PATH`.
 
 ## Site version
 
