@@ -42,6 +42,34 @@ sitemap.xml           All 12 pages, with hreflang alternates
 grep -rn "TODO SOLARMA" *.html en/*.html
 ```
 
+## Site version
+
+Every page carries the released version twice: visibly, as the last entry of the footer
+legal strip (*Versione v3.0.1* / *Version v3.0.1*), and machine readably, as
+`<meta name="version">` in the `<head>`. Both are plain committed HTML — what is in the
+repository is what the visitor sees, with no build step and no JavaScript involved.
+
+`tools/set-site-version.py` keeps the two in sync across all 13 pages. It is idempotent,
+so it can be re-run freely:
+
+```sh
+python3 tools/set-site-version.py             # write `git describe --tags --always`
+python3 tools/set-site-version.py -v v3.0.2   # write an explicit version
+python3 tools/set-site-version.py --check     # verify only, exit 1 on any drift
+```
+
+Releasing:
+
+```sh
+python3 tools/set-site-version.py -v v3.0.2
+git commit -am "Release v3.0.2"
+git tag -a v3.0.2 -m "v3.0.2" && git push --follow-tags
+```
+
+Stamp *before* tagging, so that the tagged commit is the one carrying its own version.
+Run `--check` to confirm the pages agree with each other and with `git describe`; between
+releases the committed version names the last release, not every intermediate commit.
+
 ## Local preview
 
 Internal links and assets use **relative** paths, so the site works both when served from
