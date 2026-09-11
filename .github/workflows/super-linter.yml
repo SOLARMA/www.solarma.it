@@ -1,0 +1,71 @@
+name: Super-Linter
+
+# Runs Super-linter over changed files only (VALIDATE_ALL_CODEBASE: false),
+# scoped to a deliberately small set of linters -- see the comment below the
+# env block for what's off and why.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+  statuses: write
+
+jobs:
+  super-linter:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+        with:
+          # Super-linter diffs against git history to find changed files;
+          # a shallow checkout would leave it nothing to diff against.
+          fetch-depth: 0
+
+      - name: Super-linter
+        uses: super-linter/super-linter@v8.7.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DEFAULT_BRANCH: main
+          # Lint only what changed in this push/PR, not the whole repository
+          # every time: /history/ alone holds old HTML/CSS/JS/Markdown that
+          # would fail every linter below under today's conventions, and it
+          # is kept for reference only -- "not part of the live site, do not
+          # edit" (AGENTS.md). Excluding it here is a second, independent
+          # guard for the rare case it gets touched anyway.
+          VALIDATE_ALL_CODEBASE: false
+          FILTER_REGEX_EXCLUDE: (^|/)history/
+
+          # --- Enabled: verified clean (or fixed) against this repository ---
+          VALIDATE_YAML: true
+          VALIDATE_GITHUB_ACTIONS: true
+          VALIDATE_DOCKERFILE_HADOLINT: true
+          VALIDATE_PYTHON_FLAKE8: true
+          VALIDATE_MARKDOWN: true
+          VALIDATE_HTML: true
+          VALIDATE_JAVASCRIPT_ES: true
+
+          # --- Explicitly off, not just left unset ---
+          # CSS: default stylelint config reports ~300 problems against
+          # assets/css/site.css, almost all of them this project's own
+          # conventions read as violations -- BEM class names (__, --) hit
+          # selector-class-pattern, and the deliberately dense one-line
+          # utility/state rules hit declaration-block-single-line-max-
+          # declarations. Revisit with a repo-specific stylelint config if
+          # CSS linting is wanted; that's a separate, larger piece of work
+          # than adding this workflow.
+          VALIDATE_CSS: false
+          # Security/compliance scanners with a much broader, stricter remit
+          # than the linters above -- turning them on is a deliberate choice
+          # for someone to make on its own terms, not a side effect of
+          # wiring up basic linting.
+          VALIDATE_CHECKOV: false
+          VALIDATE_TRIVY: false
+          VALIDATE_GITHUB_ACTIONS_ZIZMOR: false
+
+      # Everything else Super-linter can validate stays off by omission: once
+      # any VALIDATE_* is set to true, only the linters explicitly enabled
+      # above run.

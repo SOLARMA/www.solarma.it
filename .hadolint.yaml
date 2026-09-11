@@ -1,0 +1,10 @@
+##########################
+## Hadolint config file ##
+##########################
+#
+# Pinned copy of the config Super-linter ships by default (TEMPLATES/.hadolint.yaml
+# in super-linter/super-linter).
+
+failure-threshold: warning
+
+ignored:

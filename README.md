@@ -7,7 +7,7 @@ framework, no runtime dependencies: every page is plain HTML that can be edited 
 
 ## Structure
 
-```
+```text
 /                     Italian site (default)
   index.html          Home
   azienda.html        Company — history, partners, principles, company objects
@@ -41,6 +41,22 @@ sitemap.xml           All 12 pages, with hreflang alternates
 ```sh
 grep -rn "TODO SOLARMA" *.html en/*.html
 ```
+
+## Linting
+
+`.github/workflows/super-linter.yml` runs [Super-linter](https://github.com/super-linter/super-linter)
+on every push and pull request against `main`, checking only the files that changed. It
+covers YAML, GitHub Actions workflows, the Dockerfile (hadolint), Python (flake8),
+Markdown, HTML and JavaScript (ESLint) — CSS is off, since a generic stylelint config
+reads this project's BEM class names and dense one-line utility rules as violations, and
+`history/` is excluded outright, since it's old code kept for reference rather than a
+target for today's conventions.
+
+The five dotfiles at the repo root (`.flake8`, `.yaml-lint.yml`, `.markdown-lint.yml`,
+`.hadolint.yaml`, `.htmlhintrc`) and `eslint.config.mjs` are pinned copies of Super-linter's
+own bundled defaults, so a future change to those defaults can't silently start failing
+this repo's existing style (long single-line values in the nginx ConfigMap and CSP header,
+aligned YAML in `deployment.yaml`, long-line prose in these docs).
 
 ## Site version
 

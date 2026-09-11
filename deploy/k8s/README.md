@@ -4,7 +4,7 @@ Scaffolding to serve the SOLARMA website from a Kubernetes cluster instead of
 (or alongside) GitHub Pages. Plain manifests plus a Kustomize overlay — no Helm,
 no operator, no persistent storage.
 
-```
+```text
 deploy/k8s/
   base/                     portable manifests, no cluster-specific values
   overlays/k3s-gmhome/      everything specific to the k3s-gmhome cluster
@@ -26,7 +26,7 @@ rather than serving an empty document root.
 Two archive shapes are supported, set via `SITE_ARCHIVE_URL`:
 
 | Archive | Contents |
-|---|---|
+| --- | --- |
 | Repository tag/branch archive from `codeload.github.com` (default) | The complete site, including `404.html`, `robots.txt` and `sitemap.xml` |
 | The reviewer package from `tools/build-review-package.py` | The pages only — no `404.html`, `robots.txt` or `sitemap.xml` |
 
@@ -51,7 +51,7 @@ the three cluster-specific values are guesses based on k3s defaults. All three
 live in `overlays/k3s-gmhome/patch-ingress.yaml`:
 
 | Value | Default assumed | How to confirm |
-|---|---|---|
+| --- | --- | --- |
 | `ingressClassName` | `traefik` (k3s ships it, but many homelabs replace it with ingress-nginx) | `kubectl get ingressclass` |
 | `cert-manager.io/cluster-issuer` | `letsencrypt-prod` | `kubectl get clusterissuer` |
 | `host` | `solarma.gmhome.example` — a placeholder | your DNS |
