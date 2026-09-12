@@ -394,6 +394,17 @@ hr { border: 0; border-top: 1px solid var(--line); margin: 2.5rem 0; }
 }
 .project__title { font-size: 1.08rem; margin: .35rem 0 .5rem; }
 .project__body p:last-child { margin-bottom: 0; font-size: .93rem; }
+/* Technologies used on a project, as chips under the description. */
+.project__tech {
+  display: flex; flex-wrap: wrap; gap: .35rem;
+  margin: .9rem 0 0; padding: 0; list-style: none;
+}
+.project__tech li {
+  padding: .2rem .55rem; border-radius: 999px;
+  background: var(--bg-alt); border: 1px solid var(--line);
+  color: var(--ink-soft); font-size: .74rem; font-weight: 600;
+}
+.project__link { margin: .9rem 0 0; font-size: .88rem; }
 
 /* ---------- Prose (legal pages) ---------- */
 .prose h2 { margin-top: 2.6rem; padding-top: 1.6rem; border-top: 1px solid var(--line); }
