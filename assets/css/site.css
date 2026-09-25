@@ -389,7 +389,7 @@ hr { border: 0; border-top: 1px solid var(--line); margin: 2.5rem 0; }
 .project .media-placeholder { border: 0; border-radius: 0; }
 .project > img {
   display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover;
-  background: var(--bg-alt);
+  background: var(--bg-alt); border-bottom: 1px solid var(--line);
 }
 .project__body { padding: 1.3rem 1.4rem; }
 .project__meta {
