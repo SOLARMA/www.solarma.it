@@ -171,34 +171,49 @@
     <div style="margin-top:clamp(2.4rem,2rem+2vw,3.4rem)">
       <div class="section-head" style="margin-bottom:1.8rem">
         <span class="eyebrow">Experience</span>
-        <h3 style="font-size:1.5rem">More than thirty years of embedded systems, from firmware to cloud</h3>
-        <p style="margin-bottom:0">Alongside plant design, SOLARMA brings a competence uncommon in a company of this kind: more than thirty years of experience designing and integrating embedded systems for industry and automotive. It is the competence we use to keep our own plant under remote supervision, and it is available to anyone with similar needs.</p>
+        <h3 style="font-size:1.5rem">More than thirty years of embedded systems, from circuit board to cloud</h3>
+        <p style="margin-bottom:0">Alongside plant design, SOLARMA brings a competence uncommon in a company of this kind: more than thirty years of experience designing and integrating embedded systems for industry and automotive, now spanning the whole chain: hardware, firmware, data-processing algorithms and infrastructure. It is the competence we use to keep our own plant under remote supervision, and it is available to anyone with similar needs.</p>
       </div>
       <div class="grid grid--3">
         <div class="card">
-          <div class="card__icon card__icon--solar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="2"/><path d="M8.5 8.5a5 5 0 0 0 0 7M15.5 8.5a5 5 0 0 1 0 7M5.5 5.5a9 9 0 0 0 0 13M18.5 5.5a9 9 0 0 1 0 13"/></svg></div>
-          <h4>Remote monitoring and telemetry</h4>
-          <p>Sensors, gateways and field protocols (MQTT) to collect a plant&rsquo;s data and cut down on site visits. It is the technology we apply to our own plant to keep operating costs down.</p>
+          <div class="card__icon card__icon--solar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8" cy="9" r="1.5"/><circle cx="16" cy="15" r="1.5"/><path d="M9.5 9H13a2 2 0 0 1 2 2v2.5M3 15h5M16 4v3.5"/></svg></div>
+          <h4>Electronic hardware design</h4>
+          <p>Mixed-signal, battery-powered boards designed in KiCad, from schematic through assembly and bring-up. Standby consumption in the microampere range, and debugging on real hardware with oscilloscopes, logic analysers and power profilers.</p>
         </div>
         <div class="card">
-          <div class="card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="7" y="7" width="10" height="10" rx="1.5"/><path d="M10 3v4M14 3v4M10 17v4M14 17v4M3 10h4M3 14h4M17 10h4M17 14h4"/></svg></div>
+          <div class="card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="7" width="17" height="10" rx="2"/><path d="M22 10.5v3M11.5 9 9 12h3.5L10 15"/></svg></div>
+          <h4>Low-power firmware</h4>
+          <p>Embedded C firmware for ARM Cortex-M microcontrollers on Zephyr RTOS: peripheral drivers written from scratch, data streaming over Bluetooth Low Energy, and signed over-the-air updates (MCUboot) for devices in the field.</p>
+        </div>
+        <div class="card">
+          <div class="card__icon card__icon--leaf"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="7" y="7" width="10" height="10" rx="1.5"/><path d="M10 3v4M14 3v4M10 17v4M14 17v4M3 10h4M3 14h4M17 10h4M17 14h4"/></svg></div>
           <h4>Sensor networks and embedded systems</h4>
           <p>Sensor nodes and firmware on microcontrollers (Arduino, ESP32), BLE and BLE Mesh communication, UART, I&sup2;C and SPI, to instrument existing machinery and plant.</p>
         </div>
         <div class="card">
-          <div class="card__icon card__icon--leaf"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="4" width="19" height="16" rx="2"/><path d="m7 9 3 3-3 3M13 15h4"/></svg></div>
+          <div class="card__icon card__icon--solar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h3.5l2-6 4 12 3-9 2 3H21"/></svg></div>
+          <h4>Signal processing and machine learning</h4>
+          <p>Real-time algorithms running directly on the microcontroller, for example to derive physiological parameters from wearable sensors, plus machine learning, computer vision and predictive models built in Python (PyTorch).</p>
+        </div>
+        <div class="card">
+          <div class="card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="4" width="19" height="16" rx="2"/><path d="m7 9 3 3-3 3M13 15h4"/></svg></div>
           <h4>Embedded Linux</h4>
           <p>Building and optimising embedded Linux distributions with Yocto, porting to bespoke hardware, board support packages and system startup.</p>
         </div>
         <div class="card">
-          <div class="card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.5 19a4.5 4.5 0 0 1-.6-8.96 6 6 0 0 1 11.54-1.2A4.5 4.5 0 0 1 17.5 19Z"/></svg></div>
+          <div class="card__icon card__icon--leaf"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="2"/><path d="M8.5 8.5a5 5 0 0 0 0 7M15.5 8.5a5 5 0 0 1 0 7M5.5 5.5a9 9 0 0 0 0 13M18.5 5.5a9 9 0 0 1 0 13"/></svg></div>
+          <h4>Remote monitoring and telemetry</h4>
+          <p>Sensors, gateways and field protocols (MQTT) to collect a plant&rsquo;s data and cut down on site visits. It is the technology we apply to our own plant to keep operating costs down.</p>
+        </div>
+        <div class="card">
+          <div class="card__icon card__icon--solar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.5 19a4.5 4.5 0 0 1-.6-8.96 6 6 0 0 1 11.54-1.2A4.5 4.5 0 0 1 17.5 19Z"/></svg></div>
           <h4>Data infrastructure and cloud</h4>
           <p>Collecting, storing and presenting plant data: containerised services (Docker, Kubernetes) on local infrastructure or in the cloud (AWS, Azure).</p>
         </div>
         <div class="card">
-          <div class="card__icon card__icon--solar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="5" r="2.2"/><circle cx="6" cy="19" r="2.2"/><circle cx="18" cy="9" r="2.2"/><path d="M6 7.2v9.6M18 11.2c0 3.5-3 4.3-6 4.3"/></svg></div>
+          <div class="card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="5" r="2.2"/><circle cx="6" cy="19" r="2.2"/><circle cx="18" cy="9" r="2.2"/><path d="M6 7.2v9.6M18 11.2c0 3.5-3 4.3-6 4.3"/></svg></div>
           <h4>Software engineering process</h4>
-          <p>Continuous integration and delivery (Jenkins, GitHub Actions), configuration management with Git and issue tracking: introduced and brought into routine use in R&amp;D teams.</p>
+          <p>Continuous integration and delivery (Jenkins, GitHub Actions, GitLab CI), automated firmware build, flashing and release pipelines, configuration management with Git and issue tracking: introduced and brought into routine use in R&amp;D teams.</p>
         </div>
         <div class="card">
           <div class="card__icon card__icon--leaf"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5Z"/><path d="M4 5.5v15M20 18v3H6.5"/></svg></div>
@@ -211,7 +226,7 @@
           <p>Analysis and support in defining the process and the steps required to ensure compliance with the ISO&nbsp;26262 and IEC&nbsp;61511 functional safety standards, the EU Cyber Resilience Act and the Radio Equipment Directive, for embedded systems in the automotive and manufacturing sectors.</p>
         </div>
       </div>
-      <p style="margin:1.6rem 0 0;font-size:.88rem;color:var(--ink-mute)">Sectors in which this experience was gained: automotive and in-vehicle infotainment, industrial machinery, robotics, telecommunications and energy.</p>
+      <p style="margin:1.6rem 0 0;font-size:.88rem;color:var(--ink-mute)">Sectors in which this experience was gained: automotive and in-vehicle infotainment, industrial machinery, robotics, telecommunications, energy and wearable devices.</p>
     </div>
 
     <div style="margin-top:clamp(2.4rem,2rem+2vw,3.4rem)">
